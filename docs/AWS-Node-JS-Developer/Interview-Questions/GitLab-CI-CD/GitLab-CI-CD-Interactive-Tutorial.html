@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitLab CI/CD Interactive Tutorial</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2em; background: #f9f9f9; }
+    .question { margin-bottom: 2em; padding: 1em; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px #eee; }
+    .explanation { color: #0077cc; margin-top: 1em; }
+    button { margin-top: 1em; }
+  </style>
+</head>
+<body>
+  <h1>GitLab CI/CD Interactive Tutorial</h1>
+  <div id="quiz"></div>
+  <script>
+    const questions = [
+      {
+        topic: "Basics",
+        question: "What file is used to define a GitLab CI/CD pipeline?",
+        options: [".gitlab-ci.yml", "pipeline.json", "ci.yaml", "build.yml"],
+        answer: 0,
+        explanation: "The .gitlab-ci.yml file is used to define pipeline stages and jobs in GitLab CI/CD."
+      },
+      {
+        topic: "Runners",
+        question: "What is a runner in GitLab CI/CD?",
+        options: ["A build tool", "An agent that executes jobs", "A deployment script", "A database"],
+        answer: 1,
+        explanation: "A runner is an agent that executes pipeline jobs in GitLab CI/CD."
+      },
+      {
+        topic: "Variables",
+        question: "How are environment variables used in GitLab CI/CD?",
+        options: ["To store secrets and configuration", "To run tests", "To deploy code", "To monitor logs"],
+        answer: 0,
+        explanation: "Environment variables are used to store secrets and configuration for jobs."
+      },
+      {
+        topic: "Monitoring",
+        question: "Where can you view pipeline status and job logs in GitLab?",
+        options: ["GitLab UI", "AWS Console", "Jenkins", "Bitbucket"],
+        answer: 0,
+        explanation: "Pipeline status and job logs are available in the GitLab UI."
+      }
+    ];
+
+    let current = 0;
+    function renderQuestion() {
+      const q = questions[current];
+      let html = `<div class='question'><h2>Topic: ${q.topic}</h2><p>${q.question}</p>`;
+      q.options.forEach((opt, i) => {
+        html += `<label><input type='radio' name='option' value='${i}'> ${opt}</label><br>`;
+      });
+      html += `<button onclick='submitAnswer()'>Submit</button></div>`;
+      document.getElementById('quiz').innerHTML = html;
+    }
+
+    function submitAnswer() {
+      const q = questions[current];
+      const selected = document.querySelector('input[name="option"]:checked');
+      if (!selected) {
+        alert('Please select an answer.');
+        return;
+      }
+      const idx = parseInt(selected.value);
+      let result = "";
+      if (idx === q.answer) {
+        result = "<strong>Correct!</strong>";
+        nextStep(result);
+      } else {
+        result = `<strong>Incorrect.</strong> <div class='explanation'>${q.explanation}</div>`;
+        nextStep(result);
+      }
+    }
+
+    function nextStep(result) {
+      let html = `<div class='question'>${result}`;
+      if (current < questions.length - 1) {
+        html += `<br><button onclick='nextQuestion()'>Next Question</button>`;
+      } else {
+        html += `<br><strong>Tutorial Complete!</strong>`;
+      }
+      html += `</div>`;
+      document.getElementById('quiz').innerHTML = html;
+    }
+
+    function nextQuestion() {
+      current++;
+      renderQuestion();
+    }
+
+    renderQuestion();
+  </script>
+</body>
+</html>

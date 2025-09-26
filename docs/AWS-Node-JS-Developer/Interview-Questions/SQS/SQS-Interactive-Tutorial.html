@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SQS Interactive Tutorial</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2em; background: #f9f9f9; }
+    .question { margin-bottom: 2em; padding: 1em; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px #eee; }
+    .explanation { color: #0077cc; margin-top: 1em; }
+    button { margin-top: 1em; }
+  </style>
+</head>
+<body>
+  <h1>SQS Interactive Tutorial</h1>
+  <div id="quiz"></div>
+  <script>
+    const questions = [
+      {
+        topic: "Basics",
+        question: "What is Amazon SQS used for?",
+        options: ["Storing files", "Message queuing", "Running code", "Monitoring logs"],
+        answer: 1,
+        explanation: "Amazon SQS is a fully managed message queuing service for decoupling and scaling applications."
+      },
+      {
+        topic: "Queue Types",
+        question: "Which SQS queue type guarantees message order?",
+        options: ["Standard", "FIFO", "DLQ", "Priority"],
+        answer: 1,
+        explanation: "FIFO queues guarantee message order and exactly-once processing."
+      },
+      {
+        topic: "Integration",
+        question: "Which AWS service can process SQS messages automatically?",
+        options: ["Lambda", "EC2", "S3", "CloudFront"],
+        answer: 0,
+        explanation: "Lambda can be triggered to process SQS messages automatically."
+      },
+      {
+        topic: "Dead-Letter Queues",
+        question: "What is the purpose of a dead-letter queue in SQS?",
+        options: ["Store failed messages", "Store large files", "Monitor logs", "Run code"],
+        answer: 0,
+        explanation: "Dead-letter queues store messages that can't be processed successfully after multiple attempts."
+      }
+    ];
+
+    let current = 0;
+    function renderQuestion() {
+      const q = questions[current];
+      let html = `<div class='question'><h2>Topic: ${q.topic}</h2><p>${q.question}</p>`;
+      q.options.forEach((opt, i) => {
+        html += `<label><input type='radio' name='option' value='${i}'> ${opt}</label><br>`;
+      });
+      html += `<button onclick='submitAnswer()'>Submit</button></div>`;
+      document.getElementById('quiz').innerHTML = html;
+    }
+
+    function submitAnswer() {
+      const q = questions[current];
+      const selected = document.querySelector('input[name="option"]:checked');
+      if (!selected) {
+        alert('Please select an answer.');
+        return;
+      }
+      const idx = parseInt(selected.value);
+      let result = "";
+      if (idx === q.answer) {
+        result = "<strong>Correct!</strong>";
+        nextStep(result);
+      } else {
+        result = `<strong>Incorrect.</strong> <div class='explanation'>${q.explanation}</div>`;
+        nextStep(result);
+      }
+    }
+
+    function nextStep(result) {
+      let html = `<div class='question'>${result}`;
+      if (current < questions.length - 1) {
+        html += `<br><button onclick='nextQuestion()'>Next Question</button>`;
+      } else {
+        html += `<br><strong>Tutorial Complete!</strong>`;
+      }
+      html += `</div>`;
+      document.getElementById('quiz').innerHTML = html;
+    }
+
+    function nextQuestion() {
+      current++;
+      renderQuestion();
+    }
+
+    renderQuestion();
+  </script>
+</body>
+</html>

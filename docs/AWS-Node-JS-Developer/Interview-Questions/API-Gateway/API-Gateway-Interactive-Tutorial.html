@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API Gateway Interactive Tutorial</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2em; background: #f9f9f9; }
+    .question { margin-bottom: 2em; padding: 1em; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px #eee; }
+    .explanation { color: #0077cc; margin-top: 1em; }
+    button { margin-top: 1em; }
+  </style>
+</head>
+<body>
+  <h1>API Gateway Interactive Tutorial</h1>
+  <div id="quiz"></div>
+  <script>
+    const questions = [
+      {
+        topic: "Basics",
+        question: "What is the main purpose of Amazon API Gateway?",
+        options: ["Store data", "Create and manage APIs", "Monitor logs", "Run code"],
+        answer: 1,
+        explanation: "API Gateway is used to create, publish, maintain, monitor, and secure APIs at any scale."
+      },
+      {
+        topic: "Integration",
+        question: "Which AWS service is commonly integrated with API Gateway for serverless APIs?",
+        options: ["EC2", "Lambda", "S3", "RDS"],
+        answer: 1,
+        explanation: "API Gateway is commonly integrated with AWS Lambda to create serverless API backends."
+      },
+      {
+        topic: "Security",
+        question: "Which method can be used to secure APIs in API Gateway?",
+        options: ["API keys", "IAM roles", "Lambda authorizers", "All of the above"],
+        answer: 3,
+        explanation: "API Gateway supports API keys, IAM roles, Lambda authorizers, and Cognito user pools for security."
+      },
+      {
+        topic: "Monitoring",
+        question: "Which AWS service is used to monitor API Gateway logs and metrics?",
+        options: ["CloudWatch", "S3", "EC2", "IAM"],
+        answer: 0,
+        explanation: "CloudWatch is used to monitor API Gateway logs and metrics."
+      }
+    ];
+
+    let current = 0;
+    function renderQuestion() {
+      const q = questions[current];
+      let html = `<div class='question'><h2>Topic: ${q.topic}</h2><p>${q.question}</p>`;
+      q.options.forEach((opt, i) => {
+        html += `<label><input type='radio' name='option' value='${i}'> ${opt}</label><br>`;
+      });
+      html += `<button onclick='submitAnswer()'>Submit</button></div>`;
+      document.getElementById('quiz').innerHTML = html;
+    }
+
+    function submitAnswer() {
+      const q = questions[current];
+      const selected = document.querySelector('input[name="option"]:checked');
+      if (!selected) {
+        alert('Please select an answer.');
+        return;
+      }
+      const idx = parseInt(selected.value);
+      let result = "";
+      if (idx === q.answer) {
+        result = "<strong>Correct!</strong>";
+        nextStep(result);
+      } else {
+        result = `<strong>Incorrect.</strong> <div class='explanation'>${q.explanation}</div>`;
+        nextStep(result);
+      }
+    }
+
+    function nextStep(result) {
+      let html = `<div class='question'>${result}`;
+      if (current < questions.length - 1) {
+        html += `<br><button onclick='nextQuestion()'>Next Question</button>`;
+      } else {
+        html += `<br><strong>Tutorial Complete!</strong>`;
+      }
+      html += `</div>`;
+      document.getElementById('quiz').innerHTML = html;
+    }
+
+    function nextQuestion() {
+      current++;
+      renderQuestion();
+    }
+
+    renderQuestion();
+  </script>
+</body>
+</html>
