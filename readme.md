@@ -1,0 +1,73 @@
+# AWS Node JS Developer Workspace Overview
+
+## Top Level Structure
+
+- **AWS-Node-JS-Developer/**
+  - **AWS-Integration-Developer/**
+    - AWS-Integration-Developer-Master.md
+    - AWS-Integration-Developer-Requirements.md
+  - **Interview-Questions/**
+    - **API-Gateway/**
+      - API-Gateway-Advanced-Interview-Questions.md
+      - API-Gateway-Interactive-Tutorial.html
+      - API-Gateway-Interview-Questions.md
+      - API-Gateway-Tutorial.md
+    - **AWS-CDK/**
+      - AWS-CDK-Advanced-Interview-Questions.md
+      - AWS-CDK-Interactive-Tutorial.html
+      - AWS-CDK-Interview-Questions.md
+      - AWS-CDK-Tutorial.md
+    - **AWS-Lambda/**
+      - AWS-Lambda-Advanced-Interview-Questions.md
+      - AWS-Lambda-Interactive-Tutorial.html
+      - AWS-Lambda-Interview-Questions.md
+      - AWS-Lambda-Tutorial.md
+    - **DataAPI/**
+      - DataAPI-Advanced-Interview-Questions.md
+      - DataAPI-Interactive-Tutorial.html
+      - DataAPI-Interview-Questions.md
+      - DataAPI-Tutorial.md
+    - **GitLab-CI-CD/**
+      - GitLab-CI-CD-Advanced-Interview-Questions.md
+      - GitLab-CI-CD-Interactive-Tutorial.html
+      - GitLab-CI-CD-Interview-Questions.md
+      - GitLab-CI-CD-Tutorial.md
+    - **NodeJS/**
+      - NodeJS-Advanced-Interview-Questions.md
+      - NodeJS-Interactive-Tutorial.html
+      - NodeJS-Interview-Questions.md
+      - NodeJS-Tutorial.md
+    - **PostgreSQL/**
+      - PostgreSQL-Advanced-Interview-Questions.md
+      - PostgreSQL-Interactive-Tutorial.html
+      - PostgreSQL-Interview-Questions.md
+      - PostgreSQL-Tutorial.md
+    - **S3/**
+      - S3-Advanced-Interview-Questions.md
+      - S3-Interactive-Tutorial.html
+      - S3-Interview-Questions.md
+      - S3-Tutorial.md
+    - **SQS/**
+      - SQS-Advanced-Interview-Questions.md
+      - SQS-Interactive-Tutorial.html
+      - SQS-Interview-Questions.md
+      - SQS-Tutorial.md
+    - **Serverless-Architecture/**
+      - Serverless-Architecture-Advanced-Interview-Questions.md
+      - Serverless-Architecture-Interactive-Tutorial.html
+      - Serverless-Architecture-Interview-Questions.md
+      - Serverless-Architecture-Tutorial.md
+    - **Testing/**
+      - Testing-Advanced-Interview-Questions.md
+      - Testing-Interactive-Tutorial.html
+      - Testing-Interview-Questions.md
+      - Testing-Tutorial.md
+    - **TypeScript/**
+      - TypeScript-Advanced-Interview-Questions.md
+      - TypeScript-Interactive-Tutorial.html
+      - TypeScript-Interview-Questions.md
+      - TypeScript-Tutorial.md
+
+---
+
+This workspace contains resources for AWS Node JS Developer interviews, tutorials, and requirements documentation, organized by topic and technology.
