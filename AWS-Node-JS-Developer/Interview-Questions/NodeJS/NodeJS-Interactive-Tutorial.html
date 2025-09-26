@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Node.js Interactive Tutorial</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2em; background: #f9f9f9; }
+    .question { margin-bottom: 2em; padding: 1em; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px #eee; }
+    .explanation { color: #0077cc; margin-top: 1em; }
+    button { margin-top: 1em; }
+  </style>
+</head>
+<body>
+  <h1>Node.js Interactive Tutorial</h1>
+  <div id="quiz"></div>
+  <script>
+    const questions = [
+      {
+        topic: "HTTP Server",
+        question: "Which module is used to create an HTTP server in Node.js?",
+        options: ["fs", "http", "net", "express"],
+        answer: 1,
+        explanation: "The http module is used to create HTTP servers. Example: const http = require('http');"
+      },
+      {
+        topic: "Event Loop",
+        question: "What is the event loop responsible for in Node.js?",
+        options: ["Blocking I/O", "Handling async operations", "Compiling code", "Managing memory"],
+        answer: 1,
+        explanation: "The event loop handles asynchronous operations, making Node.js non-blocking."
+      },
+      {
+        topic: "Async/Await",
+        question: "Which keyword is used to declare an asynchronous function in Node.js?",
+        options: ["async", "await", "promise", "callback"],
+        answer: 0,
+        explanation: "The async keyword is used to declare asynchronous functions."
+      },
+      {
+        topic: "Streams",
+        question: "What is a stream in Node.js?",
+        options: ["A database", "A file", "A continuous flow of data", "A server"],
+        answer: 2,
+        explanation: "A stream is a continuous flow of data, used for efficient data processing."
+      }
+    ];
+
+    let current = 0;
+    function renderQuestion() {
+      const q = questions[current];
+      let html = `<div class='question'><h2>Topic: ${q.topic}</h2><p>${q.question}</p>`;
+      q.options.forEach((opt, i) => {
+        html += `<label><input type='radio' name='option' value='${i}'> ${opt}</label><br>`;
+      });
+      html += `<button onclick='submitAnswer()'>Submit</button></div>`;
+      document.getElementById('quiz').innerHTML = html;
+    }
+
+    function submitAnswer() {
+      const q = questions[current];
+      const selected = document.querySelector('input[name="option"]:checked');
+      if (!selected) {
+        alert('Please select an answer.');
+        return;
+      }
+      const idx = parseInt(selected.value);
+      let result = "";
+      if (idx === q.answer) {
+        result = "<strong>Correct!</strong>";
+        nextStep(result);
+      } else {
+        result = `<strong>Incorrect.</strong> <div class='explanation'>${q.explanation}</div>`;
+        nextStep(result);
+      }
+    }
+
+    function nextStep(result) {
+      let html = `<div class='question'>${result}`;
+      if (current < questions.length - 1) {
+        html += `<br><button onclick='nextQuestion()'>Next Question</button>`;
+      } else {
+        html += `<br><strong>Tutorial Complete!</strong>`;
+      }
+      html += `</div>`;
+      document.getElementById('quiz').innerHTML = html;
+    }
+
+    function nextQuestion() {
+      current++;
+      renderQuestion();
+    }
+
+    renderQuestion();
+  </script>
+</body>
+</html>

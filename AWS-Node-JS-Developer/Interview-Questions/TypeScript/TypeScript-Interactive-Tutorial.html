@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TypeScript Interactive Tutorial</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2em; background: #f9f9f9; }
+    .question { margin-bottom: 2em; padding: 1em; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px #eee; }
+    .explanation { color: #0077cc; margin-top: 1em; }
+    button { margin-top: 1em; }
+  </style>
+</head>
+<body>
+  <h1>TypeScript Interactive Tutorial</h1>
+  <div id="quiz"></div>
+  <script>
+    const questions = [
+      {
+        topic: "Basic Types",
+        question: "Which TypeScript type would you use to declare a variable that can only hold true or false?",
+        options: ["number", "string", "boolean", "any"],
+        answer: 2,
+        explanation: "The boolean type is used for true/false values. Example: let isActive: boolean = true;"
+      },
+      {
+        topic: "Interfaces",
+        question: "What does an interface define in TypeScript?",
+        options: ["A function", "The shape of an object", "A variable", "A class"],
+        answer: 1,
+        explanation: "An interface defines the structure (shape) of an object, including property names and types."
+      },
+      {
+        topic: "Classes & Inheritance",
+        question: "How do you create a subclass in TypeScript?",
+        options: ["class Dog extends Animal", "class Dog implements Animal", "class Dog inherits Animal", "class Dog uses Animal"],
+        answer: 0,
+        explanation: "Use the extends keyword to create a subclass. Example: class Dog extends Animal {}"
+      },
+      {
+        topic: "Generics",
+        question: "What is the purpose of generics in TypeScript?",
+        options: ["To create reusable code components", "To define object shapes", "To handle async code", "To create classes"],
+        answer: 0,
+        explanation: "Generics allow you to write reusable code components that work with any data type."
+      }
+    ];
+
+    let current = 0;
+    function renderQuestion() {
+      const q = questions[current];
+      let html = `<div class='question'><h2>Topic: ${q.topic}</h2><p>${q.question}</p>`;
+      q.options.forEach((opt, i) => {
+        html += `<label><input type='radio' name='option' value='${i}'> ${opt}</label><br>`;
+      });
+      html += `<button onclick='submitAnswer()'>Submit</button></div>`;
+      document.getElementById('quiz').innerHTML = html;
+    }
+
+    function submitAnswer() {
+      const q = questions[current];
+      const selected = document.querySelector('input[name="option"]:checked');
+      if (!selected) {
+        alert('Please select an answer.');
+        return;
+      }
+      const idx = parseInt(selected.value);
+      let result = "";
+      if (idx === q.answer) {
+        result = "<strong>Correct!</strong>";
+        nextStep(result);
+      } else {
+        result = `<strong>Incorrect.</strong> <div class='explanation'>${q.explanation}</div>`;
+        nextStep(result);
+      }
+    }
+
+    function nextStep(result) {
+      let html = `<div class='question'>${result}`;
+      if (current < questions.length - 1) {
+        html += `<br><button onclick='nextQuestion()'>Next Question</button>`;
+      } else {
+        html += `<br><strong>Tutorial Complete!</strong>`;
+      }
+      html += `</div>`;
+      document.getElementById('quiz').innerHTML = html;
+    }
+
+    function nextQuestion() {
+      current++;
+      renderQuestion();
+    }
+
+    renderQuestion();
+  </script>
+</body>
+</html>
