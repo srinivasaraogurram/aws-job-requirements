@@ -1,0 +1,6 @@
+sequenceDiagram
+participant Program
+participant CallStack
+Program->>CallStack: Invoke function
+CallStack->>CallStack: Evaluate task
+CallStack->>Program: Pop execution context

@@ -1,0 +1,10 @@
+sequenceDiagram
+participant Program
+participant CallStack
+participant WebAPI
+participant TaskQueue
+participant EventLoop
+Program->>CallStack: Call setTimeout
+CallStack->>WebAPI: Register callback, pop from stack
+WebAPI->>TaskQueue: After delay, push callback
+EventLoop->>CallStack: If stack empty, move callback from TaskQueue

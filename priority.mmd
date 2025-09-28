@@ -1,0 +1,9 @@
+sequenceDiagram
+participant EventLoop
+participant MicrotaskQueue
+participant TaskQueue
+participant CallStack
+EventLoop->>MicrotaskQueue: Check microtasks first
+MicrotaskQueue->>CallStack: Move all microtasks to stack
+EventLoop->>TaskQueue: Only when microtasks empty, check tasks
+TaskQueue->>CallStack: Move task to stack

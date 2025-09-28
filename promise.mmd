@@ -1,0 +1,12 @@
+sequenceDiagram
+participant Program
+participant CallStack
+participant WebAPI
+participant Promise
+participant MicrotaskQueue
+participant EventLoop
+Program->>CallStack: Call fetch
+CallStack->>WebAPI: Initiate network request, pop from stack
+WebAPI->>Promise: Fulfill promise
+Promise->>MicrotaskQueue: Queue .then callback
+EventLoop->>CallStack: If stack empty, move microtask to stack

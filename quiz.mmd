@@ -1,0 +1,12 @@
+sequenceDiagram
+participant Program
+participant CallStack
+participant MicrotaskQueue
+participant TaskQueue
+participant EventLoop
+Program->>CallStack: console.log(5)
+Program->>MicrotaskQueue: Promise.then(console.log(1))
+Program->>MicrotaskQueue: queueMicrotask(console.log(3))
+Program->>TaskQueue: setTimeout(console.log(2))
+MicrotaskQueue->>MicrotaskQueue: queueMicrotask(console.log(4))
+EventLoop->>CallStack: Execute 5, 1, 3, 4, 2 in order
