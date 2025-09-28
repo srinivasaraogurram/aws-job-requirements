@@ -3,6 +3,9 @@
   "features": {
     "ghcr.io/devcontainers/features/java:1": {
     "installMaven": "true"
+    },
+    "ghcr.io/devcontainers/features/aws-cli:1": {
+      "version":"latest"
     }
   }
 }
